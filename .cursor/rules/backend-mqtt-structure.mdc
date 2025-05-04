@@ -1,0 +1,30 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# 后端交互与MQTT通信结构说明
+
+本项目的设备与后端服务器主要通过 MQTT 和 WebSocket 协议进行通信，相关实现集中在以下文件：
+- [main/protocols/mqtt_protocol.h](mdc:main/protocols/mqtt_protocol.h)
+- [main/protocols/mqtt_protocol.cc](mdc:main/protocols/mqtt_protocol.cc)
+- [main/protocols/protocol.h](mdc:main/protocols/protocol.h)
+- [main/protocols/websocket_protocol.h](mdc:main/protocols/websocket_protocol.h)
+- [main/protocols/websocket_protocol.cc](mdc:main/protocols/websocket_protocol.cc)
+
+## 主要交互内容
+- 音频流（OPUS编码）
+- 设备能力/状态（物联网）
+- 控制命令（如TTS、物联网控制、设备管理等）
+- OTA/激活/配置
+
+## 典型数据流
+- 设备通过 MQTT/WebSocket 发送 hello、音频、状态等 JSON 或二进制数据到后端
+- 后端返回 TTS、控制命令、OTA 等 JSON 数据
+
+## 物联网相关
+- 物联网设备能力、状态、命令的 JSON 格式定义见 [main/iot/thing_manager.cc](mdc:main/iot/thing_manager.cc) 及 [main/iot/README.md](mdc:main/iot/README.md)
+
+## 典型API/消息结构
+- 详见 [main/protocols/protocol.h](mdc:main/protocols/protocol.h) 的 Send/On 方法和消息结构体
+
